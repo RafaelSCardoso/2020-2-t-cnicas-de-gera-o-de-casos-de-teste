@@ -60,7 +60,7 @@ public class DepComb {
      * Caso de erros:
      *  - Imput invalido -> @return [-1,0,0,0] 
      *  - não puder ser atendido em função da “situação” (tanque <25% && TIPOPOSTO.COMUM) -> @return [-2,0,0,0] 
-     *  - Imput invalido -> @return [-3,0,0,0] 
+     *  - sem combustivel suficiente -> @return [-3,0,0,0]  postos estrategicos podem entregar tudo oq podem
      */
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto) {
         return null;
