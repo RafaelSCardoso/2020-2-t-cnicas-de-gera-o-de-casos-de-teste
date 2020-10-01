@@ -8,7 +8,9 @@ public class DepComb {
     public static final int MAX_ALCOOL = 2500;
     public static final int MAX_GASOLINA = 10000;
 
-    public DepComb(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) {  }
+    public DepComb(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) { 
+        
+     }
 
     public void defineSituacao(){  }
 
@@ -43,9 +45,27 @@ public class DepComb {
     public int recebeAlcool(int qtdade) {
         return qtdade;
     }
-
+    /**
+     * OBS: tanques de alcool sao 'compartilhados', ambos possuem o mesmo tipo de fluido.
+     * @param qtdade
+     * @param tipoPosto
+     * @return retorna um array com o restante de combustivel seguinte sequencia:
+     *      [
+     *          Aditivo,
+     *          Gasolina,
+     *          Alcool1,
+     *          Alcool2
+     *      ]
+     * 
+     * Caso de erros:
+     *  - Imput invalido -> @return [-1,0,0,0] 
+     *  - não puder ser atendido em função da “situação” (tanque <25% && TIPOPOSTO.COMUM) -> @return [-2,0,0,0] 
+     *  - Imput invalido -> @return [-3,0,0,0] 
+     */
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto) {
         return null;
     }
+
+
 }
 
