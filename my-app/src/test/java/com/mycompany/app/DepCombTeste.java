@@ -15,6 +15,26 @@ public class DepCombTeste {
     // ----------------------  >=50%  ----------------------
     
     @Test
+    public void extraTanqueTest() {
+        int[] quantTanque={
+            501,
+            10001,
+            1251,
+            1251
+        };
+        int pedido = 500;
+
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        int [] result = {-1,0,0,0};
+        // testa posto comum
+        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.COMUM));
+
+        // testa posto estrategico
+        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+    }
+
+    @Test
     public void primeiroTest() {
         int[] quantTanque={
             500,
@@ -32,7 +52,7 @@ public class DepCombTeste {
                 (int)(quantTanque[2]-(pedido*.25)),
             // quantTanque[2],
             // quantTanque[3]-(pedido*.25),
-            quantTanque[3],
+            quantTanque[3]
 
             };
         // testa posto comum
@@ -96,7 +116,7 @@ public class DepCombTeste {
                 (int)(quantTanque[2]-(pedido/2*.25)),
             // quantTanque[2],
             // quantTanque[3]-(pedido*.25),
-            quantTanque[3],
+            quantTanque[3]
 
             };
         // testa posto comum
@@ -110,7 +130,7 @@ public class DepCombTeste {
                 (int)(quantTanque[2]-(pedido*.25)),
             // quantTanque[2],
             // quantTanque[3]-(pedido*.25),
-            quantTanque[3],
+            quantTanque[3]
             };
             
         Assertions.assertEquals(result2, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
@@ -135,7 +155,7 @@ public class DepCombTeste {
                 (int)(quantTanque[2]-(pedido*.25)),
             // quantTanque[2],
             // quantTanque[3]-(pedido*.25),
-            quantTanque[3],
+            quantTanque[3]
 
             };
         // testa posto comum
@@ -171,7 +191,7 @@ public class DepCombTeste {
                 (int)(quantTanque[2]-(pedido*.25)),
             // quantTanque[2],
             // quantTanque[3]-(pedido*.25),
-            quantTanque[3],
+            quantTanque[3]
 
             };
         Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
