@@ -33,7 +33,11 @@ public class DepComb {
     public int gettAlcool2(){
         return 0;
     }
-
+    /**
+     * 
+     * @param qtdade
+     * @return -1 caso valor invalido
+     */
     public int recebeAditivo(int qtdade) {
         return qtdade;
     }
@@ -68,4 +72,3 @@ public class DepComb {
 
 
 }
-

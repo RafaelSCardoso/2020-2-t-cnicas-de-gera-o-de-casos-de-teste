@@ -10,12 +10,60 @@ public class DepCombTeste {
 
     @BeforeAll
     public void setup() {
+        
     }
 
+
+
+
+    // ----------------------  Tests encomendaCombustivel ----------------------
+
+    @Test
+    public void recebeInicialTeste() {
+        int[] quantTanque={0,0,0,0};
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        Assertions.assertEquals(500, tanques.recebeAditivo(500));
+        Assertions.assertEquals(10000, tanques.recebeGasolina(10000));
+        Assertions.assertEquals(2500, tanques.recebeAlcool(2500));
+    }
+
+    @Test
+    public void recebeMetadeTeste() {
+        int[] quantTanque={250,5000,625,625};
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        Assertions.assertEquals(250, tanques.recebeAditivo(500));
+        Assertions.assertEquals(5000, tanques.recebeGasolina(6000));
+        Assertions.assertEquals(1250, tanques.recebeAlcool(2000));
+    }
+
+    @Test
+    public void recebeOverflowTeste() {
+        int[] quantTanque={500,10000,1250,1250};
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        Assertions.assertEquals(0, tanques.recebeAditivo(1));
+        Assertions.assertEquals(0, tanques.recebeGasolina(1));
+        Assertions.assertEquals(0, tanques.recebeAlcool(1));
+    }
+
+    @Test
+    public void recebeInvalidoTeste() {
+        int[] quantTanque={0,0,0,0};
+        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        Assertions.assertEquals(-1, tanques.recebeAditivo(-50));
+        Assertions.assertEquals(-1, tanques.recebeGasolina(-50));
+        Assertions.assertEquals(-1, tanques.recebeAlcool(-50));
+    }
+
+    
+
+
+
+
+    // ----------------------  Tests encomendaCombustivel ----------------------
     // ----------------------  >=50%  ----------------------
     
     @Test
-    public void extraTanqueTest() {
+    public void construtorTest() {
         int[] quantTanque={
             501,
             10001,
