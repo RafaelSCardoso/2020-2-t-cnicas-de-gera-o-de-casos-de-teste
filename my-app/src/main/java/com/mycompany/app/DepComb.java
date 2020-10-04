@@ -9,7 +9,10 @@ public class DepComb {
     public static final int MAX_GASOLINA = 10000;
 
     public DepComb(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) { 
-        
+        tGasolina = recebeGasolina(tGasolina);
+        tAditivo = recebeAditivo(tAditivo);
+        tAlcool1 = recebeAlcool(tAlcool1);
+        tAlcool2 = recebeAlcool(tAlcool2);
      }
 
     public void defineSituacao(){  }
