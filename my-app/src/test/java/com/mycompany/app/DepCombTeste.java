@@ -12,6 +12,43 @@ public class DepCombTeste {
     public void setup() {
         
     }
+    // ----------------------  Test Construtor DepComb ----------------------
+
+    @Test
+    public void construtorTest() {
+        int[] quantTanque={
+            250,
+            5000,
+            625,
+            625
+        };
+        new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void construtorExceptionNegativoTest() {
+        int[] quantTanque={
+            -1,
+            -2,
+            -3,
+            -4
+        };
+        new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void construtorExceptionOverflowTest() {
+        int[] quantTanque={
+            501,
+            10001,
+            1251,
+            1251
+        };
+        new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
+        
+    }
 
 
 
@@ -62,28 +99,9 @@ public class DepCombTeste {
     // ----------------------  Tests encomendaCombustivel ----------------------
     // ----------------------  >=50%  ----------------------
     
-    @Test
-    public void construtorTest() {
-        int[] quantTanque={
-            501,
-            10001,
-            1251,
-            1251
-        };
-        int pedido = 500;
-
-        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
-        int [] result = {-1,0,0,0};
-        // testa posto comum
-        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.COMUM));
-
-        // testa posto estrategico
-        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
-        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
-    }
 
     @Test
-    public void primeiroTest() {
+    public void Test1() {
         int[] quantTanque={
             500,
             10000,
@@ -95,12 +113,10 @@ public class DepCombTeste {
         tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
         int [] result =
             {
-                (int)(quantTanque[0]-(pedido*.05)),
-                (int)(quantTanque[1]-(pedido*.7)),
-                (int)(quantTanque[2]-(pedido*.25)),
-            // quantTanque[2],
-            // quantTanque[3]-(pedido*.25),
-            quantTanque[3]
+                475,
+                9650,
+                1125,
+                1250
 
             };
         // testa posto comum
@@ -115,7 +131,7 @@ public class DepCombTeste {
 
     @Test
     // sobrecarga no pedido
-    public void terceiroTest() {
+    public void Test2() {
         int[] quantTanque={
             500,
             10000,
@@ -132,7 +148,7 @@ public class DepCombTeste {
         int [] result =
             {
             0,
-            (int)(quantTanque[1]-(pedido*.7)),
+            7000,
             0,
             0
 
@@ -147,7 +163,7 @@ public class DepCombTeste {
     // ----------------------  <50%  ----------------------
 
     @Test
-    public void quartoTest() {
+    public void Test3() {
         int[] quantTanque={
             249,
             4999,
@@ -159,12 +175,10 @@ public class DepCombTeste {
         tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
         int [] result =
             {
-                (int)(quantTanque[0]-(pedido/2*.05)),
-                (int)(quantTanque[1]-(pedido/2*.7)),
-                (int)(quantTanque[2]-(pedido/2*.25)),
-            // quantTanque[2],
-            // quantTanque[3]-(pedido*.25),
-            quantTanque[3]
+                237,
+                4987,
+                1238,
+                1250
 
             };
         // testa posto comum
@@ -173,12 +187,10 @@ public class DepCombTeste {
         // testa posto estrategico
         int [] result2 =
             {
-                (int)(quantTanque[0]-(pedido*.05)),
-                (int)(quantTanque[1]-(pedido*.7)),
-                (int)(quantTanque[2]-(pedido*.25)),
-            // quantTanque[2],
-            // quantTanque[3]-(pedido*.25),
-            quantTanque[3]
+                224,
+                4974,
+                1225,
+                1250 
             };
             
         Assertions.assertEquals(result2, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
@@ -186,7 +198,7 @@ public class DepCombTeste {
     }
 
     @Test
-    public void quintoTest() {
+    public void Test4() {
         int[] quantTanque={
             125,
             2500,
@@ -198,26 +210,32 @@ public class DepCombTeste {
         tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
         int [] result =
             {
-                (int)(quantTanque[0]-(pedido*.05)),
-                (int)(quantTanque[1]-(pedido*.7)),
-                (int)(quantTanque[2]-(pedido*.25)),
-            // quantTanque[2],
-            // quantTanque[3]-(pedido*.25),
-            quantTanque[3]
+                113,
+                2488,
+                300,
+                313
+
 
             };
         // testa posto comum
         Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.COMUM));
 
         // testa posto estrategico
-        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
+        int [] result2 =
+            {
+                100,
+                2475,
+                288,
+                313
+            };
+        Assertions.assertEquals(result2, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
         tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
     }
 
     // ----------------------  <25%  ----------------------
 
     @Test
-    public void sextoTest() {
+    public void Test5() {
         int[] quantTanque={
             124,
             2500,
@@ -234,38 +252,15 @@ public class DepCombTeste {
         // testa posto estrategico
         int [] result =
             {
-                (int)(quantTanque[0]-(pedido*.05)),
-                (int)(quantTanque[1]-(pedido*.7)),
-                (int)(quantTanque[2]-(pedido*.25)),
-            // quantTanque[2],
-            // quantTanque[3]-(pedido*.25),
-            quantTanque[3]
-
+                99,
+                2475,
+                288,
+                313
             };
         Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
         tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
     }
 
-    @Test
-    public void decimoTest() {
-        int[] quantTanque={
-            20,
-            90,
-            100,
-            30
-        };
-        int pedido = 500;
-
-        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
-        // testa posto comum
-        int [] resultComum = {-2,0,0,0};
-        Assertions.assertEquals(resultComum, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.COMUM));
-        
-        // testa posto estrategico
-        int [] result = {0,0,0,0};
-        Assertions.assertEquals(result, tanques.encomendaCombustivel(pedido, DepComb.TIPOPOSTO.ESTRATEGICO));
-        tanques = new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
-    }
 
     @Test
     public void decimoPrimeiroTest() {
