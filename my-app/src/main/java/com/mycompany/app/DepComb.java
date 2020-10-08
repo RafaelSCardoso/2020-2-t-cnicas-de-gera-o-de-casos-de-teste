@@ -1,8 +1,5 @@
 package com.mycompany.app;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DepComb {
     public enum SITUACAO { NORMAL, SOBRAVISO, EMERGENCIA }
     public enum TIPOPOSTO { COMUM, ESTRATEGICO }
@@ -26,11 +23,20 @@ public class DepComb {
         defineSituacao(); 
      }
 
-    public void defineSituacao(){ 
-        List<Double> comb = new ArrayList<>();
-        comb.add((double) tAditivo/MAX_ADITIVO);
-        comb.add((double) tGasolina/MAX_GASOLINA);
-        comb.add((double) (tAlcool1+tAlcool2)/MAX_ALCOOL);
+    public void defineSituacao(){
+        double percentAditivo = tAditivo/MAX_ADITIVO*1.0;
+        double percentGasolina = tGasolina/MAX_GASOLINA*1.0;
+        double percentAlcool = (tAlcool1+tAlcool2)/MAX_ALCOOL*1.0;
+
+        if ((percentAditivo >= 0.5) && (percentGasolina >= 0.5) && (percentAlcool >= 0.5)){
+            sit = SITUACAO.NORMAL;
+        } else{
+            if((percentAditivo <= 0.25) || (percentGasolina <= 0.25) || (percentAlcool <= 0.25)){
+                sit = SITUACAO.EMERGENCIA;
+            } else {
+                sit = SITUACAO.SOBRAVISO;
+            }
+        }
      }
 
     public SITUACAO getSituacao(){
@@ -38,29 +44,35 @@ public class DepComb {
     }
 
     public int gettGasolina(){
-        return 0;
+        return tGasolina;
     }
 
     public int gettAditivo(){
-        return 0;
+        return tAditivo;
     }
 
     public int gettAlcool1(){
-        return 0;
+        return tAlcool1;
     }
 
     public int gettAlcool2(){
-        return 0;
+        return tAlcool2;
     }
     /**
-     * 
      * @param qtdade
      * @return -1 caso valor invalido
      */
     public int recebeAditivo(int qtdade) {
-        if(qtdade<1){
+        if (qtdade <= 0){
             return -1;
         }
+        int qntToFill = MAX_ADITIVO-gettAditivo();
+        int qtdadeAux = qtdade;
+        qntToFill -= qtdade;
+        if (qntToFill >= 0) {
+            return qtdade;
+        }
+        qtdade = qtdadeAux + qntToFill;
         return qtdade;
     }
 
@@ -68,6 +80,13 @@ public class DepComb {
         if(qtdade<1){
             return -1;
         }
+        int qntToFill = MAX_GASOLINA-gettGasolina();
+        int qtdadeAux = qtdade;
+        qntToFill -= qtdade;
+        if (qntToFill >= 0) {
+            return qtdade;
+        }
+        qtdade = qtdadeAux + qntToFill;
         return qtdade;
     }
 
@@ -75,8 +94,16 @@ public class DepComb {
         if(qtdade<1){
             return -1;
         }
+        int qntToFill = MAX_ALCOOL - (gettAlcool1()+gettAlcool2());
+        int qtdadeAux = qtdade;
+        qntToFill -= qtdade;
+        if (qntToFill >= 0) {
+            return qtdade;
+        }
+        qtdade = qtdadeAux + qntToFill;
         return qtdade;
     }
+    
     /**
      * OBS: tanques de alcool sao 'compartilhados', ambos possuem o mesmo tipo de fluido.
      * @param qtdade
@@ -96,8 +123,7 @@ public class DepComb {
      */
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto) {
         
-        
-        DepComb x = new DepComb(aditivo, gasolina, alcool1, alcool2);
+        //DepComb x = new DepComb(aditivo, gasolina, alcool1, alcool2);
         
 
 
