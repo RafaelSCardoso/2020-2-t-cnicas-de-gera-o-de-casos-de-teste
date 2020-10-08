@@ -103,7 +103,7 @@ public class DepComb {
         qtdade = qtdadeAux + qntToFill;
         return qtdade;
     }
-    
+
     /**
      * OBS: tanques de alcool sao 'compartilhados', ambos possuem o mesmo tipo de fluido.
      * @param qtdade
@@ -122,12 +122,49 @@ public class DepComb {
      *  - sem combustivel suficiente -> @return [-3,0,0,0]  postos estrategicos podem entregar tudo oq podem
      */
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto) {
-        
-        //DepComb x = new DepComb(aditivo, gasolina, alcool1, alcool2);
-        
 
+        int[] returnArray = new int[4];
 
-        return null;
+        if (qtdade <= 0){
+            returnArray[0] = -1;
+            return returnArray;
+        }
+        if((getSituacao() == SITUACAO.EMERGENCIA) && (tipoPosto == TIPOPOSTO.COMUM)){
+            returnArray[0] = -2;
+            return returnArray;
+        }
+
+        double tmpGas = 0.7*qtdade;
+        double tmpAlc1 = 0.125*qtdade;
+        double tmpAlc2 = 0.125*qtdade;
+        double tmpAdi = 0.05*qtdade;
+
+        if ((getSituacao() == SITUACAO.SOBRAVISO) && (tipoPosto == TIPOPOSTO.COMUM)){
+            tmpAdi *= 0.5;
+            tmpGas *= 0.5;
+            tmpAlc1 *= 0.5;
+            tmpAlc2 *= 0.5;
+        }
+
+        if((tmpGas < gettGasolina()) && (tmpAlc1 < gettAlcool1()) && (tmpAlc2 < gettAlcool2())){
+            returnArray[1] = (gettGasolina() - (int)tmpGas);
+            returnArray[2] = (gettAlcool1() - (int)tmpAlc1);
+            returnArray[3] = (gettAlcool2() - (int)tmpAlc2);
+
+            // Se entendi corretamente, durante EMERGENCIA, se for um posto ESTRATEGICO, e nao tem aditivo o suficiente, entrega sem aditivo mesmo, tem que dar uma olhada melhor nesse if
+            // Os outros casos devem estar corretos, eu espero
+
+            if ((tmpAdi > gettAditivo()) && (getSituacao() == SITUACAO.EMERGENCIA) && (tipoPosto == TIPOPOSTO.ESTRATEGICO))
+                returnArray[0] = gettAditivo();
+            else
+                returnArray[0] = gettAditivo()-(int)tmpAdi;
+
+            return returnArray;
+            
+        } else {
+            returnArray[0] = -3;
+            return returnArray;
+        }
     }
 
 
