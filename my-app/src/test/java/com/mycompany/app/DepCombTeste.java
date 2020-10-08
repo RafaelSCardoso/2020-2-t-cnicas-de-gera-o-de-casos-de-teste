@@ -20,7 +20,8 @@ public class DepCombTeste {
     public void setup() {
         
     }
-    // ----------------------  Test Construtor DepComb ----------------------
+    // ----------------------  Teste Construtor DepComb ----------------------
+
 
     @Test
     public void construtorTest() {
@@ -57,10 +58,11 @@ public class DepCombTeste {
         new DepComb(quantTanque[0], quantTanque[1], quantTanque[2], quantTanque[3]);
         
     }
+
     
        
     
-    // ----------------------  Tests Construtor ----------------------
+    // ----------------------  Tests recebe ----------------------
     @ParameterizedTest
     @CsvSource({
         "0,0,0,0,500,500,10000,10000,2500,2500",
@@ -68,7 +70,7 @@ public class DepCombTeste {
         "500,10000,1250,1250,0,1,0,1,0,1",
         "500,10000,1250,1250,-1,-50,-1,-50,-1,-50",
     })
-    public void testeConstrutor(
+    public void testeRecebe(
         int quantTAditivo,int  quantTGasolina,int  quantTAlcool1,int  quantTAlcool2,
         int respAditivo, int enviaAditivo,
         int respGasolina, int enviaGasolina,
