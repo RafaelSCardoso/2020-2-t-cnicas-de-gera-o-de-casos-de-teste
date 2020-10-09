@@ -24,9 +24,9 @@ public class DepComb {
      }
 
     public void defineSituacao(){
-        double percentAditivo = tAditivo/MAX_ADITIVO*1.0;
-        double percentGasolina = tGasolina/MAX_GASOLINA*1.0;
-        double percentAlcool = (tAlcool1+tAlcool2)/MAX_ALCOOL*1.0;
+        double percentAditivo = gettAditivo()/MAX_ADITIVO*1.0;
+        double percentGasolina = gettGasolina()/MAX_GASOLINA*1.0;
+        double percentAlcool = (gettAlcool1()+gettAlcool2())/MAX_ALCOOL*1.0;
 
         if ((percentAditivo >= 0.5) && (percentGasolina >= 0.5) && (percentAlcool >= 0.5)){
             sit = SITUACAO.NORMAL;
@@ -154,7 +154,12 @@ public class DepComb {
             // Se entendi corretamente, durante EMERGENCIA, se for um posto ESTRATEGICO, e nao tem aditivo o suficiente, entrega sem aditivo mesmo, tem que dar uma olhada melhor nesse if
             // Os outros casos devem estar corretos, eu espero
 
-            if ((tmpAdi > gettAditivo()) && (getSituacao() == SITUACAO.EMERGENCIA) && (tipoPosto == TIPOPOSTO.ESTRATEGICO))
+            if((tmpAdi < gettAditivo()) && ((getSituacao() == SITUACAO.SOBRAVISO) && (tipoPosto == TIPOPOSTO.COMUM))){
+                returnArray[0] = (gettAditivo() - (int)tmpAdi);
+                return returnArray;
+            }
+
+            if ((tmpAdi > gettAditivo()) && ((getSituacao() == SITUACAO.EMERGENCIA) && (tipoPosto == TIPOPOSTO.ESTRATEGICO)))
                 returnArray[0] = gettAditivo();
             else
                 returnArray[0] = gettAditivo()-(int)tmpAdi;
